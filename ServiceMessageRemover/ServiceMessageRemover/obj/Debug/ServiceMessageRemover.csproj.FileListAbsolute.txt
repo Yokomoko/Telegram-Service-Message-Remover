@@ -1,0 +1,12 @@
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\ServiceMessageRemover.exe.config
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\obj\Debug\ServiceMessageRemover.csprojResolveAssemblyReference.cache
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\ServiceMessageRemover.exe
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\ServiceMessageRemover.pdb
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\Newtonsoft.Json.dll
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\Newtonsoft.Json.xml
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\obj\Debug\ServiceMessageRemover.exe
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\obj\Debug\ServiceMessageRemover.pdb
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\RestSharp.dll
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\RestSharp.xml
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\Telegram.Bot.dll
+c:\users\achapman\documents\visual studio 2015\Projects\ServiceMessageRemover\ServiceMessageRemover\bin\Debug\Telegram.Bot.xml
