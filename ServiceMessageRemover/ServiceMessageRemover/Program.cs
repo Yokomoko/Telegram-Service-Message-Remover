@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types;
 
 namespace ServiceMessageRemover {
-    class Program {
+
+    internal class Program {
+
+        #region Public Fields
+
         public static TelegramBotClient BotClient = new TelegramBotClient(""); // Your API Key Here
         public static List<Tuple<long, int>> DeletedMessages = new List<Tuple<long, int>>();
-        static void Main() {
-            var me = BotClient.GetMeAsync().Result;
-            Console.Title = me.Username;
-            BotClient.OnMessage += BotOnMessageReceived;
-            Timer t = new Timer(TimerCallback, null, 0, 3600000);
 
-            var arr = new[] { UpdateType.MessageUpdate };
-            BotClient.StartReceiving(arr);
-            Console.ReadLine();
-        }
+        #endregion Public Fields
+
+        #region Public Methods
 
         public static async void TimerCallback(Object o) {
             foreach (var item in DeletedMessages) {
                 if (item.Item2 > 0) {
                     await BotClient.SendTextMessageAsync(item.Item1, $"{item.Item2} new Brain{(item.Item2 == 1 ? "" : "Z")} joined in the last hour");
-                    Console.WriteLine($"{item.Item1} - {item.Item2} new BrainZ joined in the last hour");
+                    Console.WriteLine($"{DateTime.Now} - {item.Item1} - {item.Item2} new BrainZ joined in the last hour");
                 }
                 DeletedMessages = new List<Tuple<long, int>>();
             }
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs) {
             if (messageEventArgs.Message.Type == MessageType.ServiceMessage) {
@@ -46,17 +45,28 @@ namespace ServiceMessageRemover {
                     else {
                         DeletedMessages.Add(Tuple.Create(chatId, 1));
                     }
-
                     await BotClient.DeleteMessageAsync(messageEventArgs.Message.Chat.Id, messageEventArgs.Message.MessageId);
-                    Console.WriteLine("Deleted Service Message");
+                    Console.WriteLine($"{DateTime.Now} - Deleted Service Message");
                     Console.ReadLine();
-
-
-
                 }
                 //Prevent exception being thrown on previously deleted messages, sometimes they come through multiple times for some reason.
-                catch { }
+                catch (Exception e) {
+                    Console.WriteLine($"{DateTime.Now} - Error: {Environment.NewLine}{Environment.NewLine} {e.Message}");
+                }
             }
         }
+
+        private static void Main() {
+            var me = BotClient.GetMeAsync().Result;
+            Console.Title = me.Username;
+            BotClient.OnMessage += BotOnMessageReceived;
+            Timer t = new Timer(TimerCallback, null, 0, 3600000);
+
+            var arr = new[] { UpdateType.MessageUpdate };
+            BotClient.StartReceiving(arr);
+            Console.ReadLine();
+        }
+
+        #endregion Private Methods
     }
 }
