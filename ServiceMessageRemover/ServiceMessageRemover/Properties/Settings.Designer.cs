@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GifPolice.Properties {
+namespace ServiceMessageRemover.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
