@@ -19,11 +19,12 @@ namespace ServiceMessageRemover {
 
         #region Public Methods
 
-        public static async void TimerCallback(Object o) {
+        public static async void TimerCallback(Object o){
+            Console.Clear();
             foreach (var item in DeletedMessages) {
                 if (item.Item2 > 0) {
-                    await BotClient.SendTextMessageAsync(item.Item1, $"{item.Item2} new Brain{(item.Item2 == 1 ? "" : "Z")} joined in the last hour");
-                    Console.WriteLine($"{DateTime.Now} - {item.Item1} - {item.Item2} new BrainZ joined in the last hour");
+                    await BotClient.SendTextMessageAsync(item.Item1, $"{item.Item2} new Brainiac{(item.Item2 == 1 ? "" : "s")} joined in the last 1 hour");
+                    Console.WriteLine($"{DateTime.Now} - {item.Item1} - {item.Item2} new Brainiac{(item.Item2 == 1 ? "" : "s")} joined in the last 1 hour");
                 }
                 DeletedMessages = new List<Tuple<long, int>>();
             }
@@ -57,6 +58,8 @@ namespace ServiceMessageRemover {
         }
 
         private static void Main() {
+            System.AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionTrapper;
+
             var me = BotClient.GetMeAsync().Result;
             Console.Title = me.Username;
             BotClient.OnMessage += BotOnMessageReceived;
@@ -64,6 +67,15 @@ namespace ServiceMessageRemover {
 
             var arr = new[] { UpdateType.MessageUpdate };
             BotClient.StartReceiving(arr);
+            Console.ReadLine();
+        }
+
+        static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e) {
+
+            ConsoleColor colorBefore = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(e.ExceptionObject.ToString());
+            Console.ForegroundColor = colorBefore;
             Console.ReadLine();
         }
 
