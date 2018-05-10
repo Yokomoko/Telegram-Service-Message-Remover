@@ -19,7 +19,7 @@ namespace ServiceMessageRemover {
 
         #region Public Methods
 
-        public static async void TimerCallback(Object o){
+        public static async void TimerCallback(Object o) {
             Console.Clear();
             foreach (var item in DeletedMessages) {
                 if (item.Item2 > 0) {
@@ -48,7 +48,6 @@ namespace ServiceMessageRemover {
                     }
                     await BotClient.DeleteMessageAsync(messageEventArgs.Message.Chat.Id, messageEventArgs.Message.MessageId);
                     Console.WriteLine($"{DateTime.Now} - Deleted Service Message");
-                    Console.ReadLine();
                 }
                 //Prevent exception being thrown on previously deleted messages, sometimes they come through multiple times for some reason.
                 catch (Exception e) {
@@ -76,7 +75,6 @@ namespace ServiceMessageRemover {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(e.ExceptionObject.ToString());
             Console.ForegroundColor = colorBefore;
-            Console.ReadLine();
         }
 
         #endregion Private Methods
