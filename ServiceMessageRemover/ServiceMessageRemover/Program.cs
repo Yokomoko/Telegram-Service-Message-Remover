@@ -78,7 +78,7 @@ namespace ServiceMessageRemover {
 
             var arr = new[] { UpdateType.MessageUpdate };
             BotClient.StartReceiving(arr);
-            Console.ReadLine();
+            Console.ReadLine(); 
         }
 
         static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e) {
