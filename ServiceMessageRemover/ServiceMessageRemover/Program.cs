@@ -12,7 +12,7 @@ namespace ServiceMessageRemover {
 
         #region Public Fields
 
-        public static TelegramBotClient BotClient = new TelegramBotClient(""); // Your API Key Here
+        public static TelegramBotClient BotClient = new TelegramBotClient("");
         public static List<Tuple<long, int>> DeletedMessages = new List<Tuple<long, int>>();
 
         #endregion Public Fields
@@ -52,6 +52,18 @@ namespace ServiceMessageRemover {
                 //Prevent exception being thrown on previously deleted messages, sometimes they come through multiple times for some reason.
                 catch (Exception e) {
                     Console.WriteLine($"{DateTime.Now} - Error: {Environment.NewLine}{Environment.NewLine} {e.Message}");
+                }
+            }
+            else if (messageEventArgs.Message.Type == MessageType.TextMessage) {
+                if (messageEventArgs.Message.Entities.Any(d => d.Type == MessageEntityType.Url)) {
+                    if (messageEventArgs.Message.Text.Contains("t.me")) {
+                        await BotClient.DeleteMessageAsync(messageEventArgs.Message.Chat.Id, messageEventArgs.Message.MessageId);
+                        Console.WriteLine($"Deleted Telegram Link: \n{messageEventArgs.Message.From.FirstName} - {messageEventArgs.Message.Text}");
+                    }
+                }
+
+                foreach (var entity in messageEventArgs.Message.Entities.Where(d => d.Type == MessageEntityType.Url)) {
+                    
                 }
             }
         }
